@@ -41,7 +41,7 @@ In some case you may want to change the spark image for a particular deployed us
 oc edit rc spark-cluster-poweruser-m
 ----
 
-* Replace the image with the `image:` created above. `image-registry.openshift-image-registry.svc:5000/my-odh/spark22python36custom`
+* Replace the `image:` value with `image-registry.openshift-image-registry.svc:5000/my-odh/spark22python36custom`
 * Apply the same changes to `spark-cluster-poweruser-w` repliation controller
 * Delete all spark pods which will force them to be recreated with the new image
 `oc delete pod <all spark-cluster-poweruser-m and spark-cluster-w pods>`
