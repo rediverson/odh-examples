@@ -1,0 +1,15 @@
+= custom-jupyter-spawner-with-config
+
+This example shows how to configure the jupyter spawner/launcher with addtional profile configuration.  It adds various container sizes (memory and CPU) to the desired container size drop down.
+
+See odh jupyter hub https://gitlab.com/opendatahub/opendatahub-operator/tree/master/roles/aicoe-jupyterhub#additional-information[documentation] for more information
+
+== Apply the config map
+* Installing the odh operator and create an instance of the odh.
+* Adjust the `configmap.yaml` as needed.
+* Apply the config map
+====
+oc apply -f configmap.yaml
+====
+* Launch the spawner from the route.
+* Select a newly created container size from the drop down.

@@ -1,0 +1,35 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: z-jupyter-spawner-config
+  labels:
+    jupyterhub: singleuser-profiles
+data:
+  jupyterhub-singleuser-profiles.yaml: |
+    profiles:
+      - name: My profile
+        # A list of Jupyter notebook images (as listed in JupyterHub spawner UI) to which the profile is applied.
+        images:
+          - 's2i-minimal-notebook:3.6'
+          - 's2i-tensorflow-notebook:3.6'
+    sizes:
+      - name: Prefix Small Jupyter instance
+        resources:
+          mem_limit: 4Gi
+          cpu_limit: 2
+      - name: SQN.Medium
+        resources:
+          mem_limit: 8Gi
+          cpu_limit: 2
+      - name: My Large
+        resources:
+          mem_limit: 12Gi
+          cpu_limit: 2
+      - name: extra large
+        resources:
+          mem_limit: 12Gi
+          cpu_limit: 4
+      - name: 2X-Large
+        resources:
+          mem_limit: 24Gi
+          cpu_limit: 4
