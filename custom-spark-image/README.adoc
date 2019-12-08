@@ -1,0 +1,48 @@
+= custom-spark-image
+
+This repo shows how to create a custom spark python image for Open Data Hub. 
+
+These istructions use the following settings. Adjust as needed
+
+* Project: `my-odh`
+* User: `powersuer`
+* Image name: `spark22python36custom`
+
+== Create the custom spark image from a docker file
+
+Use the instructions below to create a custom spark image using the docker file in this project
+
+----
+oc import-image spark-cluster-image:spark22python36 --from=quay.io/opendatahub/spark-cluster-image:spark22python36 --confirm
+
+oc new-build --strategy docker --binary --image-stream  spark-cluster-image:spark22python36 --name spark22python36custom -l app=spark22python36custom
+
+oc start-build spark22python36custom --from-dir=.
+----
+
+This image can now be deployed in odh.
+
+=== Replacing the image within the projects open data hub instance
+* Deploy the open data hub operator in your project
+* Create open data hub in your project 
+** During the creation process update the `spark_image:` in the yaml as follow:
+----
+spark_image: 'image-registry.openshift-image-registry.svc:5000/my-odh/spark22python36custom'
+----
+** Apply the create button
+
+= Addition information
+
+== Replace a users odh spark image
+In some case you may want to change the spark image for a particular deployed user. This will require replication controller modifications.
+
+* Edit the replication controller for both `spark-cluster-poweruser-m` and `spark-cluster-poweruser-w`
+----
+oc edit rc spark-cluster-poweruser-m
+----
+
+* Replace the image with the `image:` created above. `image-registry.openshift-image-registry.svc:5000/my-odh/spark22python36custom`
+* Apply the same changes to `spark-cluster-poweruser-w` repliation controller
+* Delete all spark pods which will force them to be recreated with the new image
+`oc delete pod <all spark-cluster-poweruser-m and spark-cluster-w pods>`
+
