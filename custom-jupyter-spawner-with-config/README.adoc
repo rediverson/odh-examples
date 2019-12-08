@@ -8,8 +8,10 @@ See odh jupyter hub https://gitlab.com/opendatahub/opendatahub-operator/tree/mas
 * Installing the odh operator and create an instance of the odh.
 * Adjust the `configmap.yaml` as needed.
 * Apply the config map
-====
+
+----
 oc apply -f configmap.yaml
-====
+----
+
 * Launch the spawner from the route.
 * Select a newly created container size from the drop down.
